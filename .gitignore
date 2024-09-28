@@ -1,0 +1,4 @@
+.vscode/
+vendor/
+rss-aggregator
+.env
