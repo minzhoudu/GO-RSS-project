@@ -60,7 +60,7 @@ func main() {
 
 	//Users
 	v1Router.Post("/users", apiConfig.handlerCreateUser)
-	v1Router.Get("/users", apiConfig.handleGetUserByApiKey)
+	v1Router.Get("/users", apiConfig.middlewareAuth(apiConfig.handleGetUserByApiKey))
 
 	router.Mount("/v1", v1Router)
 
