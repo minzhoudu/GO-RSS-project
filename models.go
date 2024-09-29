@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"time"
 
 	"github.com/google/uuid"
@@ -26,12 +27,13 @@ func convertDbUserToUserDto(dbUser database.User) User {
 }
 
 type Feed struct {
-	ID        uuid.UUID `json:"id"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	Name      string    `json:"name"`
-	Url       string    `json:"url"`
-	UserID    uuid.UUID `json:"user_id"`
+	ID            uuid.UUID    `json:"id"`
+	CreatedAt     time.Time    `json:"created_at"`
+	UpdatedAt     time.Time    `json:"updated_at"`
+	Name          string       `json:"name"`
+	Url           string       `json:"url"`
+	UserID        uuid.UUID    `json:"user_id"`
+	LastFetchedAt sql.NullTime `json:"latest_fetched_at"`
 }
 
 func convertToFeedDto(dbFeed database.Feed) Feed {
