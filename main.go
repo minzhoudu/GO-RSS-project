@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -41,8 +40,6 @@ func main() {
 		DB: database.New(connection),
 	}
 
-	fmt.Println("PORT:", portString)
-
 	router := chi.NewRouter()
 	router.Use(cors.Handler(cors.Options{
 		AllowedOrigins:   []string{"https://*", "http://*"},
@@ -61,6 +58,9 @@ func main() {
 	//Users
 	v1Router.Post("/users", apiConfig.handlerCreateUser)
 	v1Router.Get("/users", apiConfig.middlewareAuth(apiConfig.handleGetUserByApiKey))
+
+	//Feed
+	v1Router.Post("/feed", apiConfig.middlewareAuth(apiConfig.handleCreateFeed))
 
 	router.Mount("/v1", v1Router)
 
