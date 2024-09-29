@@ -35,12 +35,23 @@ type Feed struct {
 }
 
 func convertToFeedDto(dbFeed database.Feed) Feed {
-	return Feed{
-		ID:        dbFeed.ID,
-		CreatedAt: dbFeed.CreatedAt,
-		UpdatedAt: dbFeed.UpdatedAt,
-		Name:      dbFeed.Name,
-		Url:       dbFeed.Url,
-		UserID:    dbFeed.UserID,
+	// return Feed{
+	// 	ID:        dbFeed.ID,
+	// 	CreatedAt: dbFeed.CreatedAt,
+	// 	UpdatedAt: dbFeed.UpdatedAt,
+	// 	Name:      dbFeed.Name,
+	// 	Url:       dbFeed.Url,
+	// 	UserID:    dbFeed.UserID,
+	// }
+	return Feed(dbFeed)
+}
+
+func convertToFeedsSliceDto(dbFeeds []database.Feed) []Feed {
+	feeds := []Feed{}
+
+	for _, dbFeed := range dbFeeds {
+		feeds = append(feeds, Feed(dbFeed))
 	}
+
+	return feeds
 }

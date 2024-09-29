@@ -39,3 +39,13 @@ func (apiCfg *apiConfiguration) handleCreateFeed(w http.ResponseWriter, r *http.
 
 	respondWithJson(w, 201, convertToFeedDto(feed))
 }
+
+func (apiCfg *apiConfiguration) handleGetFeeds(w http.ResponseWriter, r *http.Request) {
+	feeds, err := apiCfg.DB.GetFeeds(r.Context())
+	if err != nil {
+		respondWithError(w, 400, fmt.Sprintf("Unable to get feeds. Error: %v", err))
+		return
+	}
+
+	respondWithJson(w, 200, convertToFeedsSliceDto(feeds))
+}
